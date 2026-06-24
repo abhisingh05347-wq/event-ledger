@@ -1,0 +1,5 @@
+package com.example.Account.Exception;
+
+public class ResourceNotFoundException {
+
+}

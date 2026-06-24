@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+    <fullyQualifiedTypeName name="com.example.Account.Exception.ResourceNotFoundException"/>
+    <fullyQualifiedTypeName name="com.example.Account.Repository.AccountRepository"/>
+    <fullyQualifiedTypeName name="com.example.Account.Repository.AccountTransactionRepository"/>
+    <fullyQualifiedTypeName name="com.example.Account.Dto.EventRequestDTO"/>
+    <fullyQualifiedTypeName name="com.example.Account.Entity.Account"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="org.springframework.test.context.bean.override.mockito.MockitoBean"/>
+    <fullyQualifiedTypeName name="com.example.Account.Service.AccountService"/>
+    <fullyQualifiedTypeName name="org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest"/>
+    <fullyQualifiedTypeName name="com.example.Account.Controller.AccountController"/>
+    <fullyQualifiedTypeName name="com.example.Gateway.Repository.EventRepository"/>
+    <fullyQualifiedTypeName name="com.example.Gateway.Client.AccountClient"/>
+    <fullyQualifiedTypeName name="com.example.Gateway.Service.EventService"/>
+    <fullyQualifiedTypeName name="com.example.Gateway.Dto.EventRequest"/>
+    <fullyQualifiedTypeName name="com.example.Gateway.Entity.EventEntity"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,42 @@
+package com.example.Account.Controller;
+
+
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
+import com.example.Account.Dto.EventRequestDTO;
+import com.example.Account.Service.AccountService;
+
+@RestController
+@RequestMapping("/accounts")
+public class AccountController {
+
+    private final AccountService accountService;
+
+    public AccountController( AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @PostMapping(
+      "/{accountId}/transactions")
+    public ResponseEntity<String>
+    applyTransaction(@PathVariable String accountId, @RequestBody EventRequestDTO request, @RequestHeader(
+        value = "X-Trace-Id",
+        required = false)
+        String traceId) {
+        accountService.applyTransaction(
+                        accountId,
+                        request);
+        return ResponseEntity.ok(
+                "Transaction Applied");
+    }
+
+    @GetMapping("/{accountId}")
+    public ResponseEntity<com.example.Account.Entity.Account>
+    getAccount(@PathVariable String accountId) {
+        return ResponseEntity.ok(
+                accountService.getAccount(accountId));
+    }
+}

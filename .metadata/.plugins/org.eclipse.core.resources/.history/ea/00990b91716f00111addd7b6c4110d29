@@ -1,0 +1,93 @@
+package com.example.Account.Service;
+
+import java.math.BigDecimal;
+
+import org.springframework.stereotype.Service;
+
+import com.example.Account.Dto.EventRequestDTO;
+import com.example.Account.Entity.Account;
+import com.example.Account.Entity.AccountTransaction;
+import com.example.Account.Exception.ResourceNotFoundException;
+import com.example.Account.Repository.AccountRepository;
+import com.example.Account.Repository.AccountTransactionRepository;
+
+
+@Service
+public class AccountService {
+
+    private final AccountRepository accountRepository;
+
+    private final AccountTransactionRepository transactionRepository;
+
+    public AccountService( AccountRepository accountRepository,AccountTransactionRepository transactionRepository) {
+
+        this.accountRepository = accountRepository;
+
+        this.transactionRepository = transactionRepository;
+    }
+
+    public void applyTransaction(
+            String accountId,EventRequestDTO request) {
+
+        if(transactionRepository
+                .existsByEventId(
+                        request.getEventId())) {
+
+            return;
+        }
+
+        Account account =
+                accountRepository.findById(accountId).orElseGet(() -> {
+
+                            Account acc = new Account();
+                            acc.setAccountId(accountId);
+                            acc.setBalance(BigDecimal.ZERO);
+                            return acc;
+                        });
+
+        if("CREDIT".equals(
+                request.getType())) {
+
+            account.setBalance(
+                    account.getBalance()
+                            .add(
+                                    request.getAmount()));
+        } else {
+
+            account.setBalance(
+                    account.getBalance()
+                            .subtract(
+                                    request.getAmount()));
+        }
+
+        accountRepository.save(account);
+
+        AccountTransaction tx = new AccountTransaction();
+        
+       tx.setEventId(
+                request.getEventId());
+
+        tx.setAccountId(
+                accountId);
+
+        tx.setType(
+                request.getType());
+
+        tx.setAmount(
+                request.getAmount());
+
+        tx.setEventTimestamp(
+                request.getEventTimestamp());
+
+        transactionRepository.save(tx);
+    }
+
+    public Account getAccount(
+            String accountId) {
+
+        return accountRepository
+                .findById(accountId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Account not found"));
+}
